@@ -3,7 +3,7 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
 import cv2
 import mediapipe as mp
-
+from src.cv.emotion_detection import predict_emotion
 from src.cv.face_detection import detect_faces
 from src.cv.face_extraction import extract_faces
 
@@ -35,11 +35,18 @@ def run_pipeline():
                 for face, (x, y, width, height) in faces:
 
                     if face.size != 0:
-                        cv2.putText(frame, "Face Detected", (x, y - 10),
-                                    cv2.FONT_HERSHEY_SIMPLEX,
-                                    0.7, (0, 255, 0), 2)
+                        emotion = predict_emotion(face)
 
-                    cv2.rectangle(frame, (x, y),
+                        cv2.putText(
+                                    frame,
+                                    emotion,
+                                    (x, y - 10),
+                                    cv2.FONT_HERSHEY_SIMPLEX,
+                                    0.7,
+                                    (0, 255, 0),
+                                    2
+                                )
+                        cv2.rectangle(frame, (x, y),
                                   (x + width, y + height),
                                   (0, 255, 0), 2)
 
