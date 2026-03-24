@@ -1,6 +1,7 @@
 def predict_emotion(face):
     """
-    Placeholder emotion model
+    Temporary stable placeholder
+    (real model will be plugged in later)
     """
 
     if face is None:
@@ -9,9 +10,9 @@ def predict_emotion(face):
     h, w, _ = face.shape
     area = h * w
 
-    print("Face Area:", area)
-
-    if area > 50000:
+    if area > 60000:
         return "Neutral"
-
-    return "Focused"
+    elif area > 30000:
+        return "Focused"
+    else:
+        return "Uncertain"
